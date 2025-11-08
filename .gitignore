@@ -1,7 +1,6 @@
 __pycache__/
 .idea/
 .env
-main.bat
 secret_token.py
 YandexMusicDonwload.lnk
 /YandexMusicDonwloader.lnk
