@@ -2,7 +2,7 @@ from os import getenv
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 
-VERSION = "1.5.0"
+VERSION = "1.5.2"
 
 load_dotenv(find_dotenv())
 DOWNLOAD_PATH = Path(getenv('DOWNLOAD_PATH'))
