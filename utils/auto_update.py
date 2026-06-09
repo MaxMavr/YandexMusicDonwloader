@@ -10,7 +10,7 @@ def auto_update():
     auto_update_artists_id = []
 
     for link in links:
-        yandex_object = parse_link(link)
+        yandex_object = parse_link(str(link))
 
         if yandex_object.type == 'artist':
             auto_update_artists_id.append(yandex_object.id)

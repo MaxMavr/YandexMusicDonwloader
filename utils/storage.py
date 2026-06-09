@@ -12,6 +12,13 @@ DEFAULT_STATE = {
     "album": ''
 }
 
+TEMPLATE_AUTO_UPDATE = [
+  "Artist link 1",
+  "Artist link 2",
+  "Artist link 3",
+  "Artist link ..."
+]
+
 
 def load_state():
     if not STATE_FILE.exists():
@@ -24,7 +31,7 @@ def load_state():
 def load_auto_update():
     if not AUTO_UPDATE_FILE.exists():
         with open(AUTO_UPDATE_FILE, "w", encoding="utf-8") as f:
-            json.dump([], f, ensure_ascii=False, indent=4)
+            json.dump(TEMPLATE_AUTO_UPDATE, f, ensure_ascii=False, indent=4)
         return []
     with open(AUTO_UPDATE_FILE, "r", encoding="utf-8") as f:
         auto_update_artists = json.load(f)
