@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from yandex_music import Album, Track
-from config import DOWNLOAD_PATH, TEMP_PATH, STATE_FILE
+from config import DOWNLOAD_PATH, TEMP_PATH, STATE_FILE, CONFIG_PATH, AUTO_UPDATE_FILE
 from core.logger import log_artist, log_album
 from utils.string import clear_special_char, make_artists_title
 import json
@@ -21,6 +21,19 @@ def load_state():
         return json.load(f)
 
 
+def load_auto_update():
+    if not AUTO_UPDATE_FILE.exists():
+        with open(AUTO_UPDATE_FILE, "w", encoding="utf-8") as f:
+            json.dump([], f, ensure_ascii=False, indent=4)
+        return []
+    with open(AUTO_UPDATE_FILE, "r", encoding="utf-8") as f:
+        auto_update_artists = json.load(f)
+
+        if isinstance(auto_update_artists, list):
+            return auto_update_artists
+        return []
+
+
 def save_state(new_state):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(new_state, f, ensure_ascii=False, indent=4)
@@ -29,7 +42,9 @@ def save_state(new_state):
 def init_dir():
     DOWNLOAD_PATH.mkdir(parents=True, exist_ok=True)
     TEMP_PATH.mkdir(parents=True, exist_ok=True)
+    CONFIG_PATH.mkdir(parents=True, exist_ok=True)
     load_state()
+    load_auto_update()
 
 
 def get_save_track_path(album: Album, track: Track) -> Path:

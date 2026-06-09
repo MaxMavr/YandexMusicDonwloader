@@ -1,6 +1,6 @@
 from typing import Literal
 
-from config import DOWNLOAD_PATH, VERSION
+from config import DOWNLOAD_PATH, AUTO_UPDATE_FILE, VERSION
 
 GREEN = "\033[92m"
 GRAY = "\033[90m"
@@ -35,6 +35,11 @@ def log_header():
     print("\n\n\n\t           Я Н Д Е К С   С К А Ч И В А Т Е Л Ь"
           f"\n\n\t{GRAY}[ Версия ] {VERSION}"
           f"\n\t[ Папка  ] {DOWNLOAD_PATH}{RESET}\n")
+
+
+def log_auto_update():
+    print("\n\t           АВТО       ОБНОВЛЕНИЕ      АРТИСТОВ"
+          f"\n\t{GRAY}[ Список ] {AUTO_UPDATE_FILE}{RESET}\n")
 
 
 def log_invalid_link():

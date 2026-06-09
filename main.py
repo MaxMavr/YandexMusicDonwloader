@@ -1,3 +1,4 @@
+from utils.auto_update import auto_update
 from utils.storage import init_dir, save_state, DEFAULT_STATE
 from core.logger import log_invalid_link, log_header, log_input
 from core.downloader import download_track, download_album, download_artist
@@ -6,6 +7,7 @@ from core.parser import parse_link
 
 init_dir()
 log_header()
+auto_update()
 
 while True:
     link = log_input()
