@@ -1,23 +1,23 @@
 from core.downloader import download_artist
-from core.logger import log_auto_update
+from core.logger import log_auto_empty_list
 from core.parser import parse_link
-from utils.storage import load_auto_update
+from utils.storage import load_auto_list
 
 
 def auto_update():
-    links = load_auto_update()
+    links = load_auto_list()
 
-    auto_update_artists_id = []
+    artist_ids = []
 
     for link in links:
-        yandex_object = parse_link(str(link))
+        yandex_object = parse_link(link)
 
         if yandex_object.type == 'artist':
-            auto_update_artists_id.append(yandex_object.id)
+            artist_ids.append(yandex_object.id)
 
-    if auto_update_artists_id:
-        log_auto_update()
+    if not artist_ids:
+        log_auto_empty_list()
+        return
 
-        for idx in auto_update_artists_id:
-            download_artist(artist=idx)
-
+    for idx in artist_ids:
+        download_artist(artist=idx)

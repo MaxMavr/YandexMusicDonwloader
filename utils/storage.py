@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from yandex_music import Album, Track
-from config import DOWNLOAD_PATH, TEMP_PATH, STATE_FILE, CONFIG_PATH, AUTO_UPDATE_FILE
+from config import DOWNLOAD_PATH, TEMP_PATH, STATE_FILE, AUTO_UPDATE_FILE
 from core.logger import log_artist, log_album
 from utils.string import clear_special_char, make_artists_title
 import json
@@ -12,13 +12,6 @@ DEFAULT_STATE = {
     "album": ''
 }
 
-TEMPLATE_AUTO_UPDATE = [
-  "Artist link 1",
-  "Artist link 2",
-  "Artist link 3",
-  "Artist link ..."
-]
-
 
 def load_state():
     if not STATE_FILE.exists():
@@ -28,17 +21,27 @@ def load_state():
         return json.load(f)
 
 
-def load_auto_update():
+def load_auto_list() -> list:
     if not AUTO_UPDATE_FILE.exists():
-        with open(AUTO_UPDATE_FILE, "w", encoding="utf-8") as f:
-            json.dump(TEMPLATE_AUTO_UPDATE, f, ensure_ascii=False, indent=4)
-        return []
-    with open(AUTO_UPDATE_FILE, "r", encoding="utf-8") as f:
-        auto_update_artists = json.load(f)
+        _make_auto_list()
 
-        if isinstance(auto_update_artists, list):
-            return auto_update_artists
-        return []
+    with open(AUTO_UPDATE_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def append_auto_list(artists_link):
+    if not AUTO_UPDATE_FILE.exists():
+        _make_auto_list()
+
+    with open(AUTO_UPDATE_FILE, "w", encoding="utf-8") as f:
+        artists = json.load(f)
+        artists.append(artists_link)
+        json.dump(artists, f, ensure_ascii=False, indent=4)
+
+
+def _make_auto_list():
+    with open(AUTO_UPDATE_FILE, "w", encoding="utf-8") as f:
+        json.dump([], f, ensure_ascii=False, indent=4)
 
 
 def save_state(new_state):
@@ -49,9 +52,8 @@ def save_state(new_state):
 def init_dir():
     DOWNLOAD_PATH.mkdir(parents=True, exist_ok=True)
     TEMP_PATH.mkdir(parents=True, exist_ok=True)
-    CONFIG_PATH.mkdir(parents=True, exist_ok=True)
     load_state()
-    load_auto_update()
+    load_auto_list()
 
 
 def get_save_track_path(album: Album, track: Track) -> Path:

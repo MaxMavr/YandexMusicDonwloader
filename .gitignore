@@ -1,6 +1,7 @@
 __pycache__/
 .idea/
 .env
-secret_token.py
 YandexMusicDonwload.lnk
 /YandexMusicDonwloader.lnk
+YandexMusicDonwloadAuto.lnk
+/YandexMusicDonwloaderAuto.lnk

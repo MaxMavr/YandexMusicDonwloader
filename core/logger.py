@@ -34,12 +34,24 @@ def log_track(description: str, status: Literal["success", "exists", "error"]):
 def log_header():
     print("\n\n\n\t           Я Н Д Е К С   С К А Ч И В А Т Е Л Ь"
           f"\n\n\t{GRAY}[ Версия ] {VERSION}"
-          f"\n\t[ Папка  ] {DOWNLOAD_PATH}{RESET}\n")
+          f"\n\t[ Папка ]  {DOWNLOAD_PATH}{RESET}\n")
 
 
-def log_auto_update():
-    print("\n\t           АВТО       ОБНОВЛЕНИЕ      АРТИСТОВ"
-          f"\n\t{GRAY}[ Список ] {AUTO_UPDATE_FILE}{RESET}\n")
+def log_auto_header():
+    print(
+          "\n\n\n\t                        А В Т О"
+          "\n\t           Я Н Д Е К С   С К А Ч И В А Т Е Л Ь"
+          f"\n\n\t{GRAY}[ Версия ] {VERSION}"
+          f"\n\t[ Папка ]  {DOWNLOAD_PATH}"
+          f"\n\t[ Список ] {AUTO_UPDATE_FILE}{RESET}\n")
+
+
+def log_auto_empty_list():
+    _log('[ Заметка ]', 'Пока список отслеживаемых артистов пуст, они добавятся после скачивания', 'exists')
+
+
+def log_not_artist():
+    _log('[ Ошибка ]', 'В авторежиме возможно скачивать и отслеживать только артистов', 'error')
 
 
 def log_invalid_link():
