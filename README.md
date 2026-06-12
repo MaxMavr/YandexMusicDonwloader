@@ -4,7 +4,7 @@
 </p>
 <p align="center">
 <img src="https://img.shields.io/badge/made%20by-MaxMavr-DDDDDD" >
-<img src="https://img.shields.io/badge/version-1.5.2-DDDDDD"><br>
+<img src="https://img.shields.io/badge/version-1.5.4-DDDDDD"><br>
 </p>
 
 Консольная программа для загрузки музыки из сервиса **Яндекс Музыка**.

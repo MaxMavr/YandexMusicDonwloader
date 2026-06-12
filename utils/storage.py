@@ -29,14 +29,22 @@ def load_auto_list() -> list:
         return json.load(f)
 
 
-def append_auto_list(artists_link):
+def append_auto_list(artists_link) -> bool:
     if not AUTO_UPDATE_FILE.exists():
         _make_auto_list()
 
-    with open(AUTO_UPDATE_FILE, "w", encoding="utf-8") as f:
+    with open(AUTO_UPDATE_FILE, "r", encoding="utf-8") as f:
         artists = json.load(f)
-        artists.append(artists_link)
+
+    if artists_link in artists:
+        return False
+
+    artists.append(artists_link)
+
+    with open(AUTO_UPDATE_FILE, "w", encoding="utf-8") as f:
         json.dump(artists, f, ensure_ascii=False, indent=4)
+
+    return True
 
 
 def _make_auto_list():

@@ -1,6 +1,6 @@
 from utils.auto_update import auto_update
 from utils.storage import init_dir, save_state, DEFAULT_STATE, append_auto_list
-from core.logger import log_invalid_link, log_auto_header, log_input, log_not_artist
+from core.logger import log_invalid_link, log_auto_header, log_input, log_not_artist, log_not_new_artist
 from core.downloader import download_artist
 from core.parser import parse_link
 
@@ -18,8 +18,11 @@ while True:
         continue
 
     if yandex_object.type == 'artist':
+        if not append_auto_list(link):
+            log_not_new_artist()
+            continue
+
         download_artist(artist=yandex_object.id)
-        append_auto_list(link)
 
     elif yandex_object.type in ['track', 'album']:
         log_not_artist()
